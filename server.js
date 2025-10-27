@@ -27,14 +27,12 @@ app.get('/', (req, res) => {
   });
 });
 
-// Error handler middleware (basic version)
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    success: false,
-    error: err.message || 'Internal Server Error'
-  });
-});
+// Mount routes
+app.use('/api/auth', require('./routes/auth'));
+
+// Error handler middleware
+const errorHandler = require('./middleware/error');
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

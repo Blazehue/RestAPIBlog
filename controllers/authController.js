@@ -3,6 +3,7 @@
 
 const User = require('../models/User');
 const { generateToken } = require('../utils/jwt');
+const asyncHandler = require('../utils/asyncHandler');
 
 /**
  * @desc    Register a new user

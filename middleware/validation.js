@@ -84,7 +84,8 @@ const validatePost = [
     .notEmpty()
     .withMessage('Title is required')
     .isLength({ min: 3, max: 100 })
-    .withMessage('Title must be between 3 and 100 characters'),
+    .withMessage('Title must be between 3 and 100 characters')
+    .escape(), // Sanitize HTML
   
   body('content')
     .trim()
@@ -104,6 +105,11 @@ const validatePost = [
       return true;
     }),
   
+  body('tags.*')
+    .optional()
+    .trim()
+    .escape(), // Sanitize each tag
+  
   body('status')
     .optional()
     .isIn(['draft', 'published'])
@@ -120,7 +126,8 @@ const validatePostUpdate = [
     .optional()
     .trim()
     .isLength({ min: 3, max: 100 })
-    .withMessage('Title must be between 3 and 100 characters'),
+    .withMessage('Title must be between 3 and 100 characters')
+    .escape(), // Sanitize HTML
   
   body('content')
     .optional()
@@ -138,6 +145,11 @@ const validatePostUpdate = [
       }
       return true;
     }),
+  
+  body('tags.*')
+    .optional()
+    .trim()
+    .escape(), // Sanitize each tag
   
   body('status')
     .optional()

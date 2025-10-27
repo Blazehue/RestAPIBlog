@@ -5,12 +5,18 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 const connectDB = require('./config/db');
 
 // Connect to database
 connectDB();
 
 const app = express();
+
+// Security middleware
+app.use(helmet()); // Set security headers
+app.use(mongoSanitize()); // Prevent NoSQL injection
 
 // Middleware
 app.use(cors());

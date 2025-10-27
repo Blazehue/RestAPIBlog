@@ -10,10 +10,11 @@ const {
 } = require('../controllers/authController');
 const { validateRegister, validateLogin } = require('../middleware/validation');
 const { protect } = require('../middleware/auth');
+const { authLimiter } = require('../middleware/rateLimiter');
 
-// Public routes
-router.post('/register', validateRegister, registerUser);
-router.post('/login', validateLogin, loginUser);
+// Public routes with rate limiting
+router.post('/register', authLimiter, validateRegister, registerUser);
+router.post('/login', authLimiter, validateLogin, loginUser);
 
 // Protected routes
 router.get('/me', protect, getMe);

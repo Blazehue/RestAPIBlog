@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 
 // Mount routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/posts', require('./routes/posts'));
 
 // Error handler middleware
 const errorHandler = require('./middleware/error');
